@@ -118,3 +118,79 @@ body {
   animation: qiPulse 3s ease-in-out infinite;
 }
 
+/* Tab Switching Portal Animation */
+@keyframes tabPortal {
+  0% {
+    opacity: 0;
+    transform: scale(0.97) translateY(12px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+.animate-tab-portal {
+  animation: tabPortal 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Chibi Idle Breathing & Combat Motion */
+@keyframes chibiIdle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-1.5deg);
+  }
+}
+
+.animate-chibi-idle {
+  animation: chibiIdle 1.8s ease-in-out infinite;
+}
+
+@keyframes chibiSlash {
+  0% {
+    transform: translateX(0px) scale(1);
+  }
+  30% {
+    transform: translateX(28px) scale(1.1) rotate(6deg);
+  }
+  60% {
+    transform: translateX(20px) scale(1.05) rotate(2deg);
+  }
+  100% {
+    transform: translateX(0px) scale(1);
+  }
+}
+
+.animate-chibi-slash {
+  animation: chibiSlash 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Training Dummy Hit Wobble */
+@keyframes dummyWobble {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  20% {
+    transform: rotate(-10deg) scale(0.95);
+    filter: brightness(1.5) drop-shadow(0 0 10px #ef4444);
+  }
+  40% {
+    transform: rotate(8deg) scale(1.02);
+  }
+  60% {
+    transform: rotate(-4deg);
+  }
+  80% {
+    transform: rotate(2deg);
+  }
+}
+
+.animate-dummy-wobble {
+  animation: dummyWobble 0.4s ease-out;
+}
+
+

@@ -84,6 +84,8 @@ export const IdleStageViewport: React.FC = () => {
   const [slashes, setSlashes] = useState<SwordSlash[]>([]);
   const [isShaking, setIsShaking] = useState<boolean>(false);
   const [avatarHit, setAvatarHit] = useState<boolean>(false);
+  const [isSlashing, setIsSlashing] = useState<boolean>(false);
+  const [displayMode, setDisplayMode] = useState<'chibi' | 'manhwa'>('chibi');
   const [totalClicks, setTotalClicks] = useState<number>(0);
 
   const stageRef = useRef<HTMLDivElement>(null);
@@ -194,9 +196,11 @@ export const IdleStageViewport: React.FC = () => {
         setFloatingTexts((prev) => prev.filter((f) => f.id !== newFloat.id));
       }, 1100);
 
-      // Character hit vibration reaction
+      // Character attack & hit vibration reaction
+      setIsSlashing(true);
+      setTimeout(() => setIsSlashing(false), 350);
       setAvatarHit(true);
-      setTimeout(() => setAvatarHit(false), 180);
+      setTimeout(() => setAvatarHit(false), 220);
 
       if (isCrit) {
         setIsShaking(true);
@@ -382,6 +386,38 @@ export const IdleStageViewport: React.FC = () => {
           </div>
         </div>
 
+        {/* Visual Mode Switcher Pill */}
+        <div className="absolute top-16 right-4 z-30 flex items-center bg-slate-950/90 backdrop-blur-md rounded-lg p-1 border border-cyan-500/40 font-mono text-[11px] shadow-2xl">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setDisplayMode('chibi');
+            }}
+            className={`px-3 py-1 rounded font-bold transition-all flex items-center gap-1.5 ${
+              displayMode === 'chibi'
+                ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 text-slate-950 shadow-md shadow-cyan-500/30'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <span>🥋 CHIBI CHIẾN ĐẤU</span>
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setDisplayMode('manhwa');
+            }}
+            className={`px-3 py-1 rounded font-bold transition-all flex items-center gap-1.5 ${
+              displayMode === 'manhwa'
+                ? 'bg-gradient-to-r from-amber-500 to-rose-600 text-slate-950 shadow-md shadow-amber-500/30'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <span>🗡️ MANHWA NGUYÊN BẢN</span>
+          </button>
+        </div>
+
         {/* Floating Qi Motes (Shimmering Spiritual Energy Rising) */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
           {[
@@ -412,182 +448,160 @@ export const IdleStageViewport: React.FC = () => {
         </div>
 
         {/* ==========================================
-            CENTER ARENA: BAGUA DAIS & MARTIAL CULTIVATOR
+            CENTER ARENA: DUAL MODE (CHIBI BATTLE VS FULL MANHWA)
             ========================================== */}
-        <div className="absolute inset-0 flex flex-col items-center justify-end pb-8 pointer-events-none z-15">
-          {/* 1. Ground Martial Dais / Bagua Runes Circle */}
-          <div className="relative w-72 sm:w-88 md:w-96 h-28 flex items-center justify-center">
-            {/* Outer Glowing Energy Oval */}
-            <div
-              className="absolute inset-0 rounded-[50%] bg-emerald-500/15 blur-xl animate-pulse"
-              style={{ transform: 'rotateX(65deg)' }}
-            />
-            {/* Bagua Stone Dais SVG */}
-            <svg
-              viewBox="0 0 400 140"
-              className="w-full h-full opacity-80"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <ellipse
-                cx="200"
-                cy="70"
-                rx="180"
-                ry="55"
-                fill="#07131b"
-                stroke="#10b981"
-                strokeWidth="2"
-                strokeDasharray="6 3"
-              />
-              <ellipse
-                cx="200"
-                cy="70"
-                rx="140"
-                ry="42"
-                fill="#0a1a24"
-                stroke="#00f0ff"
-                strokeWidth="1.5"
-              />
-              <ellipse
-                cx="200"
-                cy="70"
-                rx="90"
-                ry="26"
-                fill="#06222b"
-                stroke="#f59e0b"
-                strokeWidth="1"
-              />
-              {/* Taiji Yin-Yang Center Accent */}
-              <circle cx="200" cy="70" r="16" fill="#00f0ff" opacity="0.3" />
-              <circle cx="193" cy="70" r="4" fill="#00f0ff" />
-              <circle cx="207" cy="70" r="4" fill="#10b981" />
-            </svg>
-          </div>
-
-          {/* 2. Standing Combat Stance Martial Cultivator Figure */}
-          <div
-            className={`absolute bottom-14 flex flex-col items-center transition-transform duration-100 ${
-              avatarHit ? 'scale-95 brightness-125' : 'hover:scale-[1.02]'
-            }`}
-          >
-            {/* Cultivator Radiant Aura */}
-            <div className="absolute -inset-6 rounded-full bg-cyan-500/20 blur-2xl animate-qi-pulse pointer-events-none" />
-
-            {/* Standing Martial Cultivator Character Representation */}
-            <div className="relative flex flex-col items-center">
-              {/* Floating Ki Sword at character's side */}
+        {displayMode === 'chibi' ? (
+          /* 1. CHIBI COMBAT ARENA: CULTIVATOR VS TRAINING DUMMY */
+          <div className="absolute inset-0 flex items-end justify-center pb-8 pointer-events-none z-15 px-4 sm:px-12">
+            <div className="w-full max-w-xl flex items-end justify-between sm:justify-around gap-2 sm:gap-6">
+              {/* Left: Chibi Cultivator Swordsman */}
               <div
-                className="absolute -right-8 top-10 w-4 h-36 origin-bottom transform rotate-12 transition-all duration-300 pointer-events-none"
-                style={{
-                  filter: 'drop-shadow(0 0 12px rgba(0, 240, 255, 0.8))',
-                  animation: 'floatSword 2.8s ease-in-out infinite',
-                }}
+                className={`relative flex flex-col items-center transition-all ${
+                  isSlashing ? 'animate-chibi-slash' : 'animate-chibi-idle'
+                }`}
               >
-                {/* Sword Blade */}
-                <div className="w-2.5 h-28 mx-auto bg-gradient-to-t from-cyan-400 via-sky-200 to-white rounded-t-sm border border-cyan-200 shadow-md" />
-                {/* Crossguard & Pommel */}
-                <div className="w-8 h-2 mx-auto bg-amber-500 rounded-sm shadow-sm" />
-                <div className="w-2 h-7 mx-auto bg-slate-800 border-x border-amber-400" />
-                <div className="w-3.5 h-3.5 mx-auto rounded-full bg-amber-400 shadow-sm" />
-              </div>
+                {/* Character Nameplate */}
+                <div className="mb-2 px-2.5 py-0.5 rounded-full bg-cyan-950/90 border border-cyan-400/50 text-[10px] font-mono font-bold text-cyan-300 shadow-lg flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+                  <span>{character?.name || 'Alex Vance'} [LVL {character?.level || 1}]</span>
+                </div>
 
-              {/* Cultivator Body / Portrait Stance Container */}
-              <div className="relative w-40 sm:w-48 md:w-52 h-64 sm:h-72 md:h-80 flex flex-col items-center">
-                {/* Optional full-body asset image if generated by worker-artist */}
+                {/* Aura under Chibi */}
+                <div className="absolute bottom-2 w-32 h-10 rounded-[50%] bg-cyan-500/25 blur-md pointer-events-none" />
+
+                {/* Chibi Character Sprite Image */}
                 <img
-                  src="/assets/cultivator_idle.png"
-                  alt="Murim Cultivator"
-                  className="absolute inset-0 w-full h-full object-contain z-10 drop-shadow-2xl pointer-events-none"
-                  onError={(e) => {
-                    // Gracefully hide if not yet created by worker-artist
-                    (e.currentTarget as HTMLElement).style.display = 'none';
-                  }}
+                  src="/assets/chibi_cultivator.jpg"
+                  alt="Alex Vance Chibi Swordsman"
+                  className="w-36 sm:w-44 md:w-52 h-36 sm:h-44 md:h-52 object-contain rounded-2xl drop-shadow-[0_0_20px_rgba(0,240,255,0.7)]"
                 />
 
-                {/* Cultivator Silhouette / Martial Costume Illustration */}
-                <div className="relative w-full h-full flex flex-col items-center justify-end">
-                  {/* Cultivator Martial Robes & Armor Body (SVG Vector Figurine) */}
-                  <svg
-                    viewBox="0 0 200 320"
-                    className="w-full h-full drop-shadow-2xl"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <defs>
-                      <linearGradient id="robeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#0f172a" />
-                        <stop offset="50%" stopColor="#1e293b" />
-                        <stop offset="100%" stopColor="#020617" />
-                      </linearGradient>
-                      <linearGradient id="capeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="#0369a1" />
-                        <stop offset="70%" stopColor="#082f49" />
-                        <stop offset="100%" stopColor="#020617" />
-                      </linearGradient>
-                      <linearGradient id="goldTrim" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#f59e0b" />
-                        <stop offset="50%" stopColor="#fef08a" />
-                        <stop offset="100%" stopColor="#d97706" />
-                      </linearGradient>
-                    </defs>
+                {/* Combat Stance Status Tag */}
+                <span className="mt-1 text-[10px] font-mono text-cyan-400/90 uppercase font-bold">
+                  {isSlashing ? '⚡ VUNG KIẾM TRẢM!' : '⚔️ THỦ THẾ KIẾM KHÍ'}
+                </span>
+              </div>
 
-                    {/* Wind-blown Flowing Cape / Y Bào */}
-                    <path
-                      d="M60 110 Q20 200 10 300 Q60 270 100 290 Q140 270 190 300 Q180 200 140 110 Z"
-                      fill="url(#capeGrad)"
-                      opacity="0.95"
-                    />
+              {/* Center Clash Sword Qi Spark */}
+              <div className="flex flex-col items-center justify-center pb-12 opacity-85">
+                <div className="w-12 h-12 rounded-full border border-dashed border-amber-400/60 bg-amber-950/40 flex items-center justify-center animate-spin">
+                  <Swords className="w-6 h-6 text-amber-400" />
+                </div>
+                <span className="text-[9px] font-mono text-amber-300 font-extrabold mt-1 tracking-wider">
+                  CHẠM ĐỂ TRẢM
+                </span>
+              </div>
 
-                    {/* Lower Martial Robe Skirt */}
-                    <path
-                      d="M70 180 L50 310 L150 310 L130 180 Z"
-                      fill="url(#robeGrad)"
-                      stroke="#0284c7"
-                      strokeWidth="1.5"
-                    />
+              {/* Right: Murim Wooden Training Dummy Target */}
+              <div
+                className={`relative flex flex-col items-center transition-all ${
+                  avatarHit ? 'animate-dummy-wobble' : ''
+                }`}
+              >
+                {/* Target Nameplate */}
+                <div className="mb-2 px-2.5 py-0.5 rounded-full bg-red-950/90 border border-red-500/50 text-[10px] font-mono font-bold text-red-300 shadow-lg flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                  <span>BÙ NHÌN LUYỆN KIẾM</span>
+                </div>
 
-                    {/* Martial Sash / Thắt Lưng Vàng */}
-                    <rect x="68" y="172" width="64" height="14" fill="url(#goldTrim)" rx="2" />
-                    <circle cx="100" cy="179" r="5" fill="#38bdf8" stroke="#f59e0b" strokeWidth="1" />
+                {/* Shadow under dummy */}
+                <div className="absolute bottom-2 w-28 h-8 rounded-[50%] bg-red-950/50 blur-md pointer-events-none" />
 
-                    {/* Upper Torso Martial Tunic */}
-                    <path
-                      d="M65 95 L50 175 L150 175 L135 95 Z"
-                      fill="url(#robeGrad)"
-                      stroke="url(#goldTrim)"
-                      strokeWidth="2"
-                    />
+                {/* Training Dummy Sprite Image */}
+                <img
+                  src="/assets/training_dummy.jpg"
+                  alt="Murim Training Dummy"
+                  className="w-32 sm:w-40 md:w-48 h-32 sm:h-40 md:h-48 object-contain rounded-2xl drop-shadow-[0_0_15px_rgba(239,68,68,0.5)]"
+                />
 
-                    {/* Shoulder Pauldrons / Giáp Vai */}
-                    <path d="M42 95 Q65 80 80 95 L75 125 Q55 120 42 95 Z" fill="#1e293b" stroke="#f59e0b" strokeWidth="1.5" />
-                    <path d="M158 95 Q135 80 120 95 L125 125 Q145 120 158 95 Z" fill="#1e293b" stroke="#f59e0b" strokeWidth="1.5" />
+                {/* Target Status */}
+                <span className="mt-1 text-[10px] font-mono text-slate-300 font-bold">
+                  {avatarHit ? '💥 BỊ TRÚNG TRẢM!' : '🎯 MỤC TIÊU HUẤN LUYỆN'}
+                </span>
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* 2. FULL MANHWA ORIGINAL MODE */
+          <div className="absolute inset-0 flex flex-col items-center justify-end pb-8 pointer-events-none z-15">
+            {/* Ground Martial Dais / Bagua Runes Circle */}
+            <div className="relative w-72 sm:w-88 md:w-96 h-28 flex items-center justify-center">
+              <div
+                className="absolute inset-0 rounded-[50%] bg-emerald-500/15 blur-xl animate-pulse"
+                style={{ transform: 'rotateX(65deg)' }}
+              />
+              <svg
+                viewBox="0 0 400 140"
+                className="w-full h-full opacity-80"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <ellipse
+                  cx="200"
+                  cy="70"
+                  rx="180"
+                  ry="55"
+                  fill="#07131b"
+                  stroke="#10b981"
+                  strokeWidth="2"
+                  strokeDasharray="6 3"
+                />
+                <ellipse
+                  cx="200"
+                  cy="70"
+                  rx="140"
+                  ry="42"
+                  fill="#0a1a24"
+                  stroke="#00f0ff"
+                  strokeWidth="1.5"
+                />
+                <ellipse
+                  cx="200"
+                  cy="70"
+                  rx="90"
+                  ry="26"
+                  fill="#06222b"
+                  stroke="#f59e0b"
+                  strokeWidth="1"
+                />
+                <circle cx="200" cy="70" r="16" fill="#00f0ff" opacity="0.3" />
+                <circle cx="193" cy="70" r="4" fill="#00f0ff" />
+                <circle cx="207" cy="70" r="4" fill="#10b981" />
+              </svg>
+            </div>
 
-                    {/* Head / Face Mask / Heroic Manhwa Eyes */}
-                    {/* Head base */}
-                    <ellipse cx="100" cy="65" rx="22" ry="26" fill="#fcd34d" opacity="0.9" />
-                    {/* Dark Cultivator Hair (Wild Solo Leveling Spikes) */}
-                    <path
-                      d="M75 60 Q70 30 100 20 Q130 30 125 60 Q135 45 130 35 Q100 10 70 35 Z"
-                      fill="#090d16"
-                    />
-                    <path d="M72 50 L62 65 L76 65 Z" fill="#090d16" />
-                    <path d="M128 50 L138 65 L124 65 Z" fill="#090d16" />
+            {/* Standing Combat Stance Martial Cultivator Figure */}
+            <div
+              className={`absolute bottom-14 flex flex-col items-center transition-transform duration-100 ${
+                avatarHit ? 'scale-95 brightness-125' : 'hover:scale-[1.02]'
+              }`}
+            >
+              <div className="absolute -inset-6 rounded-full bg-cyan-500/20 blur-2xl animate-qi-pulse pointer-events-none" />
 
-                    {/* Glowing Martial Eyes (Thần Quang Linh Nhãn) */}
-                    <ellipse cx="91" cy="65" rx="4" ry="2" fill="#00f0ff" />
-                    <ellipse cx="109" cy="65" rx="4" ry="2" fill="#00f0ff" />
-                    <circle cx="91" cy="65" r="1.5" fill="#ffffff" />
-                    <circle cx="109" cy="65" r="1.5" fill="#ffffff" />
+              <div className="relative flex flex-col items-center">
+                {/* Floating Ki Sword at character's side */}
+                <div
+                  className="absolute -right-8 top-10 w-4 h-36 origin-bottom transform rotate-12 transition-all duration-300 pointer-events-none"
+                  style={{
+                    filter: 'drop-shadow(0 0 12px rgba(0, 240, 255, 0.8))',
+                    animation: 'floatSword 2.8s ease-in-out infinite',
+                  }}
+                >
+                  <div className="w-2.5 h-28 mx-auto bg-gradient-to-t from-cyan-400 via-sky-200 to-white rounded-t-sm border border-cyan-200 shadow-md" />
+                  <div className="w-8 h-2 mx-auto bg-amber-500 rounded-sm shadow-sm" />
+                  <div className="w-2 h-7 mx-auto bg-slate-800 border-x border-amber-400" />
+                  <div className="w-3.5 h-3.5 mx-auto rounded-full bg-amber-400 shadow-sm" />
+                </div>
 
-                    {/* Martial Chest Insignia (Dragon / Sword Crest) */}
-                    <path
-                      d="M100 120 L107 135 L93 135 Z"
-                      fill="#00f0ff"
-                      className="animate-pulse"
-                    />
-                    <circle cx="100" cy="140" r="4" fill="#f59e0b" />
-                  </svg>
+                {/* Cultivator Body / Portrait Stance Container */}
+                <div className="relative w-40 sm:w-48 md:w-56 h-64 sm:h-72 md:h-84 flex flex-col items-center">
+                  <img
+                    src="/assets/cultivator_idle.png"
+                    alt="Murim Cultivator"
+                    className="absolute inset-0 w-full h-full object-contain z-10 drop-shadow-2xl pointer-events-none"
+                  />
 
                   {/* Character Name & Realm Pill */}
-                  <div className="absolute -bottom-4 bg-slate-950/90 border border-amber-500/40 rounded-full px-3 py-0.5 shadow-md flex items-center gap-1.5 backdrop-blur-sm">
+                  <div className="absolute -bottom-4 bg-slate-950/90 border border-amber-500/40 rounded-full px-3 py-0.5 shadow-md flex items-center gap-1.5 backdrop-blur-sm z-20">
                     <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
                     <span className="text-[11px] font-mono font-extrabold text-amber-300">
                       {character?.name || 'Alex Vance'}
@@ -600,7 +614,7 @@ export const IdleStageViewport: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* ==========================================
             DYNAMIC CLICK EFFECTS: SLASHES & FLOATING NUMBERS
