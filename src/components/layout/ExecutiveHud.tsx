@@ -8,6 +8,7 @@ import {
   MessageSquare,
   TrendingUp,
   Zap,
+  Swords,
 } from 'lucide-react';
 import type { CharacterState, CareerTier } from '../../types';
 import { HunterAvatar } from '../visuals/HunterAvatar';
@@ -50,6 +51,32 @@ export function calculateLevelMetrics(xp: number = 0): LevelProgressMetrics {
     xpCurrentInLevel,
     progressPercent,
   };
+}
+
+/**
+ * Calculates Combat Power (Chiến Lực / Đạo Hạnh) in Sword x Staff Idle RPG style.
+ */
+export function calculateCombatPower(character?: Partial<CharacterState> | null): number {
+  if (!character) return 580;
+  const attributes = character.attributes;
+  const str = (attributes?.strategicMind ?? 10) * 12;
+  const eng = (attributes?.englishRhetoric ?? 10) * 10;
+  const fin = (attributes?.financeIQ ?? 10) * 12;
+  const sta = (attributes?.gritStamina ?? 10) * 8;
+  const lvl = (character.level || 1) * 85;
+  const qi = Math.floor(Math.max(0, character.xp || 0) / 4);
+  return str + eng + fin + sta + lvl + qi;
+}
+
+/**
+ * Maps progression level and tier to Cultivation Realm Title (Cảnh Giới Tu Tiên).
+ */
+export function getCultivationRealmTitle(level: number = 1, tier?: string): string {
+  if (tier === 'Partner / MD' || level >= 20) return 'Đại Thừa Cảnh // C-Suite Immortal';
+  if (tier === 'VP / Manager' || level >= 15) return 'Nguyên Anh Kỳ // Senior Partner';
+  if (tier === 'Associate' || level >= 10) return 'Kim Đan Kỳ // VP General';
+  if (level >= 5) return 'Trúc Cơ Kỳ // Associate Senior';
+  return 'Luyện Khí Kỳ // Analyst Disciple';
 }
 
 /**
@@ -141,6 +168,8 @@ export const ExecutiveHud: React.FC<ExecutiveHudProps> = ({
   } = calculateLevelMetrics(character.xp);
 
   const tierConfig = getTierBadgeConfig(character.tier);
+  const combatPower = calculateCombatPower(character);
+  const realmTitle = getCultivationRealmTitle(level, character?.tier);
   const streak = character.streak || { current: 1, best: 1, lastActiveDate: null };
   const attributes = character.attributes || {
     strategicMind: 10,
@@ -179,10 +208,31 @@ export const ExecutiveHud: React.FC<ExecutiveHudProps> = ({
             <Shield className="w-3.5 h-3.5" />
             <span>[{tierConfig.label}]</span>
           </div>
+
+          {/* Cultivation Realm Title Badge */}
+          <div
+            className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded border border-cyan-500/40 bg-cyan-950/60 text-xs font-mono font-bold text-cyan-300 shadow-[0_0_8px_rgba(6,182,212,0.2)]"
+            title={`Cảnh Giới Tu Tiên: ${realmTitle}`}
+          >
+            <Swords className="w-3.5 h-3.5 text-cyan-400" />
+            <span>{realmTitle}</span>
+          </div>
         </div>
 
-        {/* Center Section: Level & XP Telemetry Bar + Streak Counter */}
+        {/* Center Section: Combat Power, Level & XP Telemetry Bar + Streak Counter */}
         <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
+          {/* Combat Power (Chiến Lực / Đạo Hạnh) RPG Telemetry */}
+          <div
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-950/60 border border-amber-500/50 shadow-[0_0_12px_rgba(245,158,11,0.25)] text-xs font-mono font-bold"
+            title="Chiến Lực / Combat Power (Đạo Hạnh)"
+          >
+            <Swords className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+            <span className="text-[10px] text-amber-400/90 font-extrabold uppercase tracking-wide">CHIẾN LỰC:</span>
+            <span className="text-white text-sm font-black tracking-wider drop-shadow-sm">
+              {combatPower.toLocaleString('en-US')}
+            </span>
+          </div>
+
           {/* Level Badge */}
           <div className="flex items-center gap-1 px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-amber-400">
             <span>LVL</span>

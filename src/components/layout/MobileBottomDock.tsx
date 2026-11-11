@@ -7,6 +7,7 @@
 
 import React from 'react';
 import {
+  Flame,
   CheckSquare,
   Timer,
   Swords,
@@ -30,14 +31,16 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
   const tabs: Array<{
     id: NavigationTab;
     label: string;
+    subLabel: string;
     icon: React.ComponentType<{ className?: string }>;
     badge?: string | number;
   }> = [
-    { id: 'execution', label: 'Quests', icon: CheckSquare, badge: `${activeQuestCount}/3` },
-    { id: 'lockin', label: 'Lock-In', icon: Timer },
-    { id: 'sparring', label: 'Arena', icon: Swords },
-    { id: 'character', label: 'Profile', icon: User },
-    { id: 'settings', label: 'Vault', icon: Sliders },
+    { id: 'stage', label: 'Stage', subLabel: 'Đấu Trường', icon: Flame },
+    { id: 'execution', label: 'Quests', subLabel: 'Nhiệm Vụ', icon: CheckSquare, badge: `${activeQuestCount}/3` },
+    { id: 'lockin', label: 'Lock-In', subLabel: 'Bế Quan', icon: Timer },
+    { id: 'sparring', label: 'Arena', subLabel: 'Luận Kiếm', icon: Swords },
+    { id: 'character', label: 'Profile', subLabel: 'Hồ Sơ', icon: User },
+    { id: 'settings', label: 'Vault', subLabel: 'Tàng Kinh', icon: Sliders },
   ];
 
   const handleSelect = (tab: NavigationTab) => {
@@ -84,8 +87,8 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
               )}
             </div>
 
-            <span className="text-[10px] font-mono tracking-tight mt-1">
-              {tab.label}
+            <span className="text-[10px] font-mono tracking-tight mt-1 truncate max-w-[54px]">
+              {tab.subLabel}
             </span>
           </button>
         );

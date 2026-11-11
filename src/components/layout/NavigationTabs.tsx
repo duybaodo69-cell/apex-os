@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import {
+  Flame,
   CheckSquare,
   Zap,
   Swords,
@@ -20,36 +21,43 @@ export interface TabConfig {
 
 export const NAVIGATION_TABS: TabConfig[] = [
   {
+    id: 'stage',
+    label: 'Đấu Trường / Stage',
+    subLabel: 'IDLE COMBAT',
+    hotkey: '`',
+    icon: Flame,
+  },
+  {
     id: 'execution',
-    label: 'Daily Execution',
+    label: 'Nhiệm Vụ / Daily Execution',
     subLabel: 'RULE OF 3',
     hotkey: '1',
     icon: CheckSquare,
   },
   {
     id: 'lockin',
-    label: 'Lock-In Session',
-    subLabel: 'DEEP WORK',
+    label: 'Bế Quan / Lock-In Session',
+    subLabel: '50M FOCUS',
     hotkey: '2',
     icon: Zap,
   },
   {
     id: 'sparring',
-    label: 'AI Sparring & Boss',
-    subLabel: 'MCKINSEY DRILL',
+    label: 'Luận Kiếm / AI Sparring Arena',
+    subLabel: 'BOSS BATTLE',
     hotkey: '3',
     icon: Swords,
   },
   {
     id: 'character',
-    label: 'Character Profile',
-    subLabel: '4 ATTRIBUTES',
+    label: 'Hồ Sơ / Character Profile',
+    subLabel: 'DOSSIER',
     hotkey: '4',
     icon: User,
   },
   {
     id: 'settings',
-    label: 'System Settings',
+    label: 'Tàng Kinh / System Settings',
     subLabel: 'DATA VAULT',
     hotkey: '5',
     icon: Sliders,

@@ -141,7 +141,7 @@ export const DEFAULT_STATE: ApexStoreState = {
     geminiApiKey: DEFAULT_API_KEY,
     soundEnabled: true,
   },
-  activeTab: 'execution',
+  activeTab: 'stage',
 };
 
 /**
@@ -219,7 +219,7 @@ function loadStoredState(): ApexStoreState {
       lockInHistory: Array.isArray(parsed.lockInHistory) ? parsed.lockInHistory : [],
       bossBattles: Array.isArray(parsed.bossBattles) && parsed.bossBattles.length > 0 ? parsed.bossBattles : DEFAULT_INITIAL_BOSSES,
       settings: { ...DEFAULT_STATE.settings, ...parsed.settings },
-      activeTab: parsed.activeTab || 'execution',
+      activeTab: parsed.activeTab || 'stage',
     };
   } catch {
     return DEFAULT_STATE;

@@ -9,6 +9,7 @@ import React from 'react';
 import { useApexStore } from './store/useApexStore';
 import { ExecutiveHud } from './components/layout/ExecutiveHud';
 import { NavigationTabs, type TabId } from './components/layout/NavigationTabs';
+import { IdleStageViewport } from './components/stage/IdleStageViewport';
 import { DailyExecutionView } from './components/execution/DailyExecutionView';
 import { LockInView } from './components/lockin/LockInView';
 import { SparringAndBossView } from './components/sparring/SparringAndBossView';
@@ -55,6 +56,12 @@ export const App: React.FC = () => {
 
       {/* 4. Main Viewport Workspace */}
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6 pb-24 sm:pb-8">
+        {(activeTab === 'stage' || !activeTab) && (
+          <div className="flex flex-col gap-6" data-testid="view-stage">
+            <IdleStageViewport />
+            <DailyExecutionView />
+          </div>
+        )}
         {activeTab === 'execution' && <DailyExecutionView />}
         {activeTab === 'lockin' && <LockInView />}
         {activeTab === 'sparring' && <SparringAndBossView />}

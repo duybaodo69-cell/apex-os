@@ -156,6 +156,7 @@ export interface Settings {
 // ==========================================
 
 export type NavigationTab =
+  | 'stage'
   | 'execution'
   | 'lockin'
   | 'sparring'

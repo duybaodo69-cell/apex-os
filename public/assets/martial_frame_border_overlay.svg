@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 880" width="1200" height="880">
+  <defs>
+    <linearGradient id="pGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffdf0"/>
+      <stop offset="15%" stop-color="#fef08a"/>
+      <stop offset="35%" stop-color="#f59e0b"/>
+      <stop offset="60%" stop-color="#b45309"/>
+      <stop offset="85%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+
+    <linearGradient id="pGoldH" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="12%" stop-color="#d97706"/>
+      <stop offset="25%" stop-color="#fde047"/>
+      <stop offset="50%" stop-color="#ffffff"/>
+      <stop offset="75%" stop-color="#fde047"/>
+      <stop offset="88%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+
+    <linearGradient id="pLacquer" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#190e10" stop-opacity="0.95"/>
+      <stop offset="50%" stop-color="#12090b" stop-opacity="0.92"/>
+      <stop offset="100%" stop-color="#190e10" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <filter id="pDropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#000000" flood-opacity="0.88"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Lacquer Rim with rounded corners -->
+  <rect x="50" y="90" width="1100" height="700" rx="18" 
+        fill="url(#pLacquer)" 
+        stroke="url(#pGoldGrad)" 
+        stroke-width="3.5" 
+        filter="url(#pDropShadow)"/>
+
+  <!-- Inner Display Window -->
+  <rect x="80" y="120" width="1040" height="640" rx="12" 
+        fill="none" 
+        fill-opacity="0.0" 
+        stroke="url(#pGoldH)" 
+        stroke-width="2"/>
+
+  <!-- Golden Dotted / Fret Accent Inner Ring -->
+  <rect x="94" y="134" width="1012" height="612" rx="8" 
+        fill="none" 
+        stroke="#f59e0b" 
+        stroke-width="1.2" 
+        stroke-dasharray="8,4" 
+        opacity="0.65"/>
+
+  <!-- Top Center Imperial Martial Crown Crest -->
+  <g transform="translate(600.0, 90)" filter="url(#pDropShadow)">
+    <path d="M -180,0 
+             C -110,-18 -55,-24 0,-26 
+             C 55,-24 110,-18 180,0 
+             C 120,-8 60,-10 0,-12 
+             C -60,-10 -120,-8 -180,0 Z" 
+          fill="url(#pGoldGrad)" stroke="#78350f" stroke-width="1.2"/>
+    
+    <!-- Cloud Flame Spire reaching safely up to y=15 -->
+    <path d="M 0,-26 C -20,-45 -28,-65 0,-76 C 28,-65 20,-45 0,-26 Z" 
+          fill="url(#pGoldGrad)" stroke="#78350f" stroke-width="1.5"/>
+    <circle cx="0" cy="-55" r="7" fill="#dc2626" stroke="#fef08a" stroke-width="1.5"/>
+
+    <!-- Winged Scrollwork -->
+    <path d="M -30,-22 C -65,-38 -105,-32 -130,-20 C -100,-26 -60,-22 -22,-14 Z" fill="url(#pGoldGrad)"/>
+    <path d="M 30,-22 C 65,-38 105,-32 130,-20 C 100,-26 60,-22 22,-14 Z" fill="url(#pGoldGrad)"/>
+
+    <!-- Martial Center Medallion -->
+    <circle cx="0" cy="0" r="22" fill="#111827" stroke="url(#pGoldGrad)" stroke-width="3"/>
+    <circle cx="0" cy="0" r="16" fill="#030712"/>
+    <!-- Sapphire Sword Insignia -->
+    <path d="M 0,-12 L 4,2 L 0,14 L -4,2 Z" fill="#38bdf8"/>
+    <path d="M -7,2 L 7,2" stroke="url(#pGoldGrad)" stroke-width="2"/>
+    <circle cx="0" cy="0" r="2" fill="#ffffff"/>
+  </g>
+
+  <!-- Bottom Center Dragon Clasp -->
+  <g transform="translate(600.0, 790)" filter="url(#pDropShadow)">
+    <path d="M -140,0 
+             C -80,14 -40,20 0,22 
+             C 40,20 80,14 140,0 
+             C 90,6 45,8 0,9 
+             C -45,8 -90,6 -140,0 Z" 
+          fill="url(#pGoldGrad)" stroke="#78350f" stroke-width="1.2"/>
+    <!-- Emerald Gem Inlay -->
+    <circle cx="0" cy="14" r="14" fill="#065f46" stroke="url(#pGoldGrad)" stroke-width="2.5"/>
+    <circle cx="0" cy="14" r="7" fill="#10b981"/>
+    <path d="M -6,26 L 6,26 L 0,38 Z" fill="url(#pGoldGrad)"/>
+    <path d="M -3,36 L -5,54 L 0,58 L 5,54 L 3,36 Z" fill="#dc2626"/>
+  </g>
+
+  <!-- Four Elaborate Dragon-Cloud Corners -->
+  <!-- Top Left -->
+  <g transform="translate(55, 95)" filter="url(#pDropShadow)">
+    <path d="M 0,0 
+             L 100,0 
+             C 75,12 55,20 45,38 
+             C 50,22 38,15 22,18 
+             C 14,40 22,50 36,55 
+             C 18,55 12,75 0,100 Z" 
+          fill="url(#pGoldGrad)" stroke="#78350f" stroke-width="1.2"/>
+    <path d="M 14,14 C 32,18 42,32 38,48 C 32,38 24,34 16,38 Z" fill="#fef08a" opacity="0.9"/>
+    <circle cx="32" cy="32" r="5.5" fill="#dc2626" stroke="#fef08a" stroke-width="1.2"/>
+    <circle cx="9" cy="9" r="4" fill="#fef08a" stroke="#78350f" stroke-width="1"/>
+  </g>
+
+  <!-- Top Right -->
+  <g transform="translate(1145, 95) scale(-1, 1)" filter="url(#pDropShadow)">
+    <path d="M 0,0 
+             L 100,0 
+             C 75,12 55,20 45,38 
+             C 50,22 38,15 22,18 
+             C 14,40 22,50 36,55 
+             C 18,55 12,75 0,100 Z" 
+          fill="url(#pGoldGrad)" stroke="#78350f" stroke-width="1.2"/>
+    <path d="M 14,14 C 32,18 42,32 38,48 C 32,38 24,34 16,38 Z" fill="#fef08a" opacity="0.9"/>
+    <circle cx="32" cy="32" r="5.5" fill="#dc2626" stroke="#fef08a" stroke-width="1.2"/>
+    <circle cx="9" cy="9" r="4" fill="#fef08a" stroke="#78350f" stroke-width="1"/>
+  </g>
+
+  <!-- Bottom Left -->
+  <g transform="translate(55, 785) scale(1, -1)" filter="url(#pDropShadow)">
+    <path d="M 0,0 
+             L 100,0 
+             C 75,12 55,20 45,38 
+             C 50,22 38,15 22,18 
+             C 14,40 22,50 36,55 
+             C 18,55 12,75 0,100 Z" 
+          fill="url(#pGoldGrad)" stroke="#78350f" stroke-width="1.2"/>
+    <path d="M 14,14 C 32,18 42,32 38,48 C 32,38 24,34 16,38 Z" fill="#fef08a" opacity="0.9"/>
+    <circle cx="32" cy="32" r="5.5" fill="#dc2626" stroke="#fef08a" stroke-width="1.2"/>
+    <circle cx="9" cy="9" r="4" fill="#fef08a" stroke="#78350f" stroke-width="1"/>
+  </g>
+
+  <!-- Bottom Right -->
+  <g transform="translate(1145, 785) scale(-1, -1)" filter="url(#pDropShadow)">
+    <path d="M 0,0 
+             L 100,0 
+             C 75,12 55,20 45,38 
+             C 50,22 38,15 22,18 
+             C 14,40 22,50 36,55 
+             C 18,55 12,75 0,100 Z" 
+          fill="url(#pGoldGrad)" stroke="#78350f" stroke-width="1.2"/>
+    <path d="M 14,14 C 32,18 42,32 38,48 C 32,38 24,34 16,38 Z" fill="#fef08a" opacity="0.9"/>
+    <circle cx="32" cy="32" r="5.5" fill="#dc2626" stroke="#fef08a" stroke-width="1.2"/>
+    <circle cx="9" cy="9" r="4" fill="#fef08a" stroke="#78350f" stroke-width="1"/>
+  </g>
+
+  <!-- Left & Right Mid-Rail Diamond Crests -->
+  <g transform="translate(64, 440.0)" filter="url(#pDropShadow)">
+    <polygon points="0,-18 14,0 0,18 -14,0" fill="url(#pGoldGrad)" stroke="#78350f" stroke-width="1.2"/>
+    <circle cx="0" cy="0" r="5" fill="#ef4444"/>
+  </g>
+  <g transform="translate(1136, 440.0)" filter="url(#pDropShadow)">
+    <polygon points="0,-18 14,0 0,18 -14,0" fill="url(#pGoldGrad)" stroke="#78350f" stroke-width="1.2"/>
+    <circle cx="0" cy="0" r="5" fill="#ef4444"/>
+  </g>
+</svg>
