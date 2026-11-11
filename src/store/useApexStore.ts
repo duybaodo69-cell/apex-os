@@ -107,9 +107,14 @@ export const DEFAULT_INITIAL_BOSSES: BossBattle[] = [
   },
 ];
 
+export const DEFAULT_API_KEY =
+  (typeof import.meta !== 'undefined' &&
+    (import.meta as unknown as { env?: { VITE_GEMINI_API_KEY?: string } }).env?.VITE_GEMINI_API_KEY) ||
+  '';
+
 export const DEFAULT_INITIAL_CHARACTER: CharacterState = {
   name: 'Alex Vance',
-  title: 'Strategic Finance Analyst',
+  title: 'Tam Lưu Kiếm Khách (Tân Nhập Giang Hồ)',
   tier: 'Junior Analyst',
   level: 1,
   xp: 0,
@@ -133,7 +138,7 @@ export const DEFAULT_STATE: ApexStoreState = {
   lockInHistory: [],
   bossBattles: DEFAULT_INITIAL_BOSSES,
   settings: {
-    geminiApiKey: '',
+    geminiApiKey: DEFAULT_API_KEY,
     soundEnabled: true,
   },
   activeTab: 'execution',
@@ -145,6 +150,14 @@ export const DEFAULT_STATE: ApexStoreState = {
 export function calculateLevelFromXp(xp: number): number {
   const safeXp = Math.max(0, Math.floor(xp || 0));
   return Math.floor(Math.sqrt(safeXp / 25)) + 1;
+}
+
+export interface MartialStrikeResult {
+  damage: number;
+  isCrit: boolean;
+  bossRemainingHp: number;
+  counterChallenge: string;
+  techniqueName: string;
 }
 
 export interface ApexStoreActions {
@@ -177,6 +190,8 @@ export interface ApexStoreActions {
   chatMessages: SparringMessage[];
   addChatMessage: (msg: Omit<SparringMessage, 'id' | 'timestamp'>) => void;
   evaluateBossSubmission: (bossId: string, submissionText: string) => { passed: boolean; score: number; feedback: string };
+  bossHp: Record<string, number>;
+  executeMartialStrike: (bossId: string, technique: string, argumentText: string) => MartialStrikeResult;
 
   // Settings & Storage
   setGeminiApiKey: (key: string) => void;
@@ -630,6 +645,61 @@ Present your case hypotheses, pitch scripts, or valuation logic below. What are 
 
       persistState(get());
       return { passed, score: totalScore, feedback };
+    },
+
+    bossHp: {
+      'boss-1': 1000,
+      'boss-2': 1000,
+      'boss-3': 1000,
+    },
+
+    executeMartialStrike: (bossId, technique, argumentText) => {
+      const { bossHp, addXp, addAttributeScore } = get();
+      const currentHp = bossHp[bossId] ?? 1000;
+      const lower = argumentText.toLowerCase();
+
+      let baseDamage = 180;
+      let isCrit = false;
+
+      if (technique.includes('MECE') || lower.includes('mece') || lower.includes('root cause') || lower.includes('driver')) {
+        baseDamage += 120;
+        isCrit = true;
+      }
+      if (lower.includes('margin') || lower.includes('cash') || lower.includes('ebitda') || lower.includes('revenue') || lower.includes('cogs')) {
+        baseDamage += 100;
+      }
+      if (lower.length > 60) {
+        baseDamage += 80;
+      }
+
+      const nextHp = Math.max(0, currentHp - baseDamage);
+      const updatedBossHp = { ...bossHp, [bossId]: nextHp };
+
+      addXp(Math.round(baseDamage / 2), `Martial Strike: ${technique}`);
+      addAttributeScore('strategicMind', 2);
+      addAttributeScore('englishRhetoric', 2);
+
+      const counterChallenges = [
+        "Đại Trưởng Lão xuất chiêu: 'Ngươi nói phân tích biến phí, nhưng nếu đối thủ hạ giá 15% để cướp thị phần thì kiếm chiêu này đỡ thế nào?'",
+        "Ma Đầu cười lạnh: 'Lập luận MECE của ngươi có kẽ hở! Chi phí cố định tại sao không tính khấu hao thiết bị?'",
+        "Chưởng Môn gật đầu nhưng vung kiếm phản kích: 'Khẩu khí sắc bén! Hãy dùng thuật ngữ C-level giải trình thời gian hoàn vốn cho Hội đồng!'",
+      ];
+      const counterChallenge = counterChallenges[Math.floor(Math.random() * counterChallenges.length)];
+
+      set({ bossHp: updatedBossHp });
+
+      if (nextHp === 0) {
+        get().evaluateBossSubmission(bossId, argumentText);
+      }
+
+      persistState(get());
+      return {
+        damage: baseDamage,
+        isCrit,
+        bossRemainingHp: nextHp,
+        counterChallenge,
+        techniqueName: technique,
+      };
     },
 
     setGeminiApiKey: (key: string) => {

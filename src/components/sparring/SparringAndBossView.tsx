@@ -16,6 +16,8 @@ import {
   CheckCircle2,
   Lock,
 } from 'lucide-react';
+import { MountHuaSummitLandscape } from '../visuals/MurimLandscapes';
+import { MurimCombatArena } from './MurimCombatArena';
 
 export const SparringAndBossView: React.FC = () => {
   const [subTab, setSubTab] = useState<'sparring' | 'boss'>('sparring');
@@ -167,6 +169,12 @@ Assume your client's primary competitor cuts price by 12% next month. How does y
 
   return (
     <section aria-label="AI Sparring and Boss Battle Section" className="flex flex-col gap-6">
+      {/* 0. Panoramic Mount Hua Summit Landscape */}
+      <MountHuaSummitLandscape
+        title="HOA SƠN LUẬN KIẾM // MARTIAL ARTS SUMMIT"
+        subtitle="Hoa Sơn Đỉnh sương mù mây phủ — Nơi đệ tử quyết định cảnh giới và thí luyện với các Đại Trưởng Lão"
+      />
+
       {/* 1. Header Banner & Sub-tab Switcher */}
       <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-5 flex flex-wrap items-center justify-between gap-4">
         <div>
@@ -416,6 +424,9 @@ Assume your client's primary competitor cuts price by 12% next month. How does y
                 </div>
               </div>
             </div>
+
+            {/* Interactive Murim Combat Arena (Boss HP, Sword Slash FX, & Martial Techniques) */}
+            <MurimCombatArena bossId={selectedBoss.id} />
 
             {/* Submission Form */}
             <form onSubmit={handleSubmitBoss} className="bg-[#0e1526] border border-slate-800 rounded-lg p-5 flex flex-col gap-3 font-mono">

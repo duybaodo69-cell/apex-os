@@ -20,6 +20,7 @@ import {
   AlertTriangle,
 } from 'lucide-react';
 import { CharacterAttributes, QuestCategory } from '../../types';
+import { BambooForestLandscape } from '../visuals/MurimLandscapes';
 
 export const DailyExecutionView: React.FC = () => {
   const quests = useApexStore((s) => s.quests);
@@ -104,6 +105,12 @@ export const DailyExecutionView: React.FC = () => {
 
   return (
     <section aria-label="Daily Execution Section" className="flex flex-col gap-6">
+      {/* 0. Panoramic Bamboo Forest Landscape */}
+      <BambooForestLandscape
+        title="PHONG VÂN LỆNH // BAMBOO GROVE OF EXECUTION"
+        subtitle="Rừng Trúc Phong Vân — Nơi đệ tử tiếp nhận 3 nhiệm vụ sinh tử mỗi ngày, tuyệt đối không phân tâm"
+      />
+
       {/* 1. Subsystem Header Banner */}
       <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-5 flex flex-wrap items-center justify-between gap-4">
         <div>
@@ -226,7 +233,7 @@ export const DailyExecutionView: React.FC = () => {
                   <div className="flex items-center justify-between gap-2 mb-2.5">
                     <div className="flex items-center gap-1.5">
                       <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-slate-900 text-cyan-400 border border-cyan-500/40">
-                        {quest.xpReward >= 200 ? 'B-RANK' : quest.xpReward >= 150 ? 'C-RANK' : 'D-RANK'}
+                        {quest.xpReward >= 200 ? 'B-RANK // HUYỀN BÍ' : quest.xpReward >= 150 ? 'C-RANK // MÔN PHÁI' : 'D-RANK // TRUY NÃ'}
                       </span>
                       <span
                         className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border flex items-center gap-1 ${getCategoryColor(

@@ -129,14 +129,14 @@ export const SettingsView: React.FC = () => {
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2 text-xs text-emerald-400 font-bold">
                 <Lock className="w-4 h-4" />
-                <span>GOOGLE AI STUDIO BYOK</span>
+                <span>GOOGLE STITCH & AI STUDIO BYOK</span>
               </div>
               <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-500/30">
                 CLIENT-SIDE ONLY
               </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Enter your private Google Gemini API key to unlock uncapped Senior Partner sparring sessions. When left blank, APEX runs a high-fidelity offline heuristic evaluator.
+              Link your private Google Stitch / Google AI Studio API key to unlock live Senior Partner sparring, dynamic martial arts combat critiques, and boss evaluations. Key is stored strictly in your browser.
             </p>
           </div>
 

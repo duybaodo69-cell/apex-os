@@ -22,6 +22,7 @@ import {
   Shield,
 } from 'lucide-react';
 import { LockInPresetMinutes, MeceNode } from '../../types';
+import { MeditationCaveLandscape } from '../visuals/MurimLandscapes';
 
 export const LockInView: React.FC = () => {
   const activeLockIn = useApexStore((s) => s.activeLockIn);
@@ -182,6 +183,12 @@ export const LockInView: React.FC = () => {
         isFullscreen ? 'fixed inset-0 z-50 bg-[#0b0f19] p-6 overflow-y-auto' : ''
       }`}
     >
+      {/* 0. Panoramic Meditation Cave Landscape */}
+      <MeditationCaveLandscape
+        title="BẾ QUAN TU LUYỆN // MEDITATION CAVE OF QI"
+        subtitle="Động Thiên Bế Quan — Ngưng tụ kiếm ý, cách ly thế tục, nhân đôi tu vi"
+      />
+
       {/* 1. Header Toolbar */}
       <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-5 flex flex-wrap items-center justify-between gap-4">
         <div>
@@ -239,6 +246,11 @@ export const LockInView: React.FC = () => {
 
           {/* Clock Display */}
           <div className="my-6 flex flex-col items-center">
+            <div className="flex items-center gap-2 mb-2 text-[10px] font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-500/30 px-2.5 py-0.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+              <span>NÉN HƯƠNG BẾ QUAN // QI CONCENTRATION</span>
+            </div>
+
             <div className="text-6xl sm:text-7xl font-mono font-extrabold text-white tracking-wider tabular-nums text-shadow">
               {formattedTime}
             </div>

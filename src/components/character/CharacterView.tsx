@@ -25,6 +25,7 @@ import { CareerTier } from '../../types';
 import { HunterAvatar } from '../visuals/HunterAvatar';
 import { StatRadarCanvas } from '../visuals/StatRadarCanvas';
 import { RankCrestBadge } from '../visuals/RankCrestBadge';
+import { WaterfallSwordTombLandscape } from '../visuals/MurimLandscapes';
 
 export const CharacterView: React.FC = () => {
   const character = useApexStore((s) => s.character);
@@ -67,6 +68,12 @@ export const CharacterView: React.FC = () => {
 
   return (
     <section aria-label="Character Profile Section" className="flex flex-col gap-6">
+      {/* 0. Panoramic Sword Tomb Waterfall Landscape */}
+      <WaterfallSwordTombLandscape
+        title="VẠN KIẾM QUY TÔNG // SWORD TOMB WATERFALL"
+        subtitle="Kiếm Trủng Thác Nước — Nơi lưu giữ chiến tích, kiếm phổ và căn cốt tu tiên của thiếu hiệp"
+      />
+
       {/* 1. Solo Leveling System Window Header Banner */}
       <div className="bg-[#0b1021]/80 backdrop-blur-md border-2 border-cyan-500/40 rounded-xl p-5 sm:p-6 flex flex-wrap items-center justify-between gap-6 shadow-[0_0_30px_rgba(0,240,255,0.15)] relative overflow-hidden">
         {/* Subtle Ambient Glow */}
