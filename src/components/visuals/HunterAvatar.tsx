@@ -73,6 +73,14 @@ export const HunterAvatar: React.FC<HunterAvatarProps> = ({
         style={{ background: aura.glow }}
       />
 
+      {/* Real Illustrated Manhwa Portrait */}
+      <img
+        src="/characters/alex_vance.jpg"
+        alt="Alex Vance"
+        className="absolute w-[76%] h-[76%] rounded-full object-cover z-20 border-2"
+        style={{ borderColor: aura.rankColor }}
+      />
+
       {/* SVG Avatar Graphic */}
       <svg
         viewBox="0 0 100 100"

@@ -10,7 +10,6 @@ import { useApexStore, MartialStrikeResult } from '../../store/useApexStore';
 import {
   Swords,
   Flame,
-  Skull,
 } from 'lucide-react';
 import { playLevelUp, playClick } from '../../utils/audio';
 import confetti from 'canvas-confetti';
@@ -174,8 +173,12 @@ Hãy đáp lời bằng văn phong kiếm hiệp Murim manhwa sắc sảo (3-4 c
         {/* Boss Header */}
         <div className="flex items-center justify-between gap-4 flex-wrap pb-3 border-b border-purple-500/30">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-purple-950 border border-purple-400 flex items-center justify-center text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.4)]">
-              <Skull className="w-6 h-6 animate-pulse" />
+            <div className="relative shrink-0">
+              <img
+                src="/characters/senior_partner_boss.jpg"
+                alt="Hoa Sơn Đệ Nhất Kiếm"
+                className="w-14 h-14 rounded-xl object-cover border-2 border-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.5)]"
+              />
             </div>
             <div>
               <div className="flex items-center gap-2">
