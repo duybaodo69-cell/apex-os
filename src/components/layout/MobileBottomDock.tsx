@@ -1,5 +1,5 @@
 import React from 'react';
-import { BriefcaseBusiness, CheckSquare, Flame, Sliders, Swords, Timer } from 'lucide-react';
+import { BriefcaseBusiness, CheckSquare, Flame, Sliders, Swords, Timer, User } from 'lucide-react';
 import type { NavigationTab } from '../../types';
 import { playClick } from '../../utils/audio';
 
@@ -11,7 +11,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({ activeTab, o
     { id: 'lockin', label: 'Focus', icon: Timer },
     { id: 'sparring', label: 'Interview', icon: Swords },
     { id: 'jobs', label: 'Jobs', icon: BriefcaseBusiness },
-    { id: 'character', label: 'Profile', icon: Flame },
+    { id: 'character', label: 'Profile', icon: User },
     { id: 'settings', label: 'Settings', icon: Sliders },
   ];
   const handleSelect = (tab: NavigationTab) => { onTabChange(tab); playClick().catch(() => {}); };

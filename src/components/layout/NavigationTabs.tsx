@@ -28,7 +28,15 @@ export const NavigationTabs: React.FC<NavigationTabsProps> = ({ activeTab, onTab
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onTabChange]);
 
-  return <nav role="tablist" aria-label="APEX navigation" className="w-full overflow-x-auto border-b border-slate-800/80 bg-[#080d18] px-2 shadow-inner scrollbar-none sm:px-4"><div className="mx-auto flex w-full max-w-7xl items-center gap-1 sm:gap-2">
-    {NAVIGATION_TABS.map((tab) => { const isActive = activeTab === tab.id; const Icon = tab.icon; return <button key={tab.id} role="tab" aria-selected={isActive} onClick={() => onTabChange(tab.id)} className={`group flex items-center gap-2 whitespace-nowrap border-b-2 px-3 py-2.5 text-xs font-mono transition-all outline-none sm:px-4 sm:py-3 ${isActive ? 'border-cyan-400 bg-cyan-400/10 font-bold text-cyan-200' : 'border-transparent text-slate-400 hover:border-slate-700 hover:bg-slate-800/40 hover:text-slate-200'}`}><Icon className={`h-3.5 w-3.5 ${isActive ? 'text-cyan-400' : 'text-slate-500 group-hover:text-slate-300'}`} /><span className="uppercase tracking-wide">{tab.label}</span><span className={`hidden rounded border px-1.5 py-0.5 text-[9px] uppercase tracking-wider md:inline-block ${isActive ? 'border-cyan-500/40 bg-cyan-950/60 font-bold text-cyan-300' : 'border-slate-800 bg-slate-900/80 text-slate-500'}`}>{tab.subLabel}</span><span className="rounded border border-slate-800 bg-slate-950 px-1 text-[10px] text-slate-500">[{tab.hotkey}]</span></button>; })}
-  </div></nav>;
+  return <aside className="hidden w-60 shrink-0 border-r border-slate-800/80 bg-[#080d18]/95 sm:block">
+    <nav role="tablist" aria-label="APEX sections" aria-orientation="vertical" className="sticky top-0 flex max-h-screen flex-col gap-1 overflow-y-auto p-3">
+      <div className="mb-3 px-3 pt-2"><div className="font-mono text-sm font-bold tracking-[0.2em] text-cyan-300">APEX OS</div><div className="mt-1 text-[10px] font-mono uppercase tracking-wider text-slate-500">Career workspace</div></div>
+      {NAVIGATION_TABS.map((tab) => { const isActive = activeTab === tab.id; const Icon = tab.icon; return <button key={tab.id} role="tab" aria-selected={isActive} onClick={() => onTabChange(tab.id)} className={`group flex w-full items-center gap-3 rounded-lg border px-3 py-3 text-left transition-all outline-none ${isActive ? 'border-cyan-500/30 bg-cyan-950/50 text-cyan-100 shadow-[inset_2px_0_0_0_#22d3ee]' : 'border-transparent text-slate-400 hover:border-slate-800 hover:bg-slate-900 hover:text-slate-100'}`}>
+        <Icon className={`h-4 w-4 shrink-0 ${isActive ? 'text-cyan-300' : 'text-slate-500 group-hover:text-slate-300'}`} />
+        <span className="min-w-0 flex-1"><span className="block text-xs font-semibold">{tab.label}</span><span className="mt-1 block text-[9px] font-mono tracking-wider text-slate-500">{tab.subLabel}</span></span>
+        <span className="rounded border border-slate-800 bg-slate-950/70 px-1.5 py-0.5 text-[9px] font-mono text-slate-600">{tab.hotkey}</span>
+      </button>; })}
+      <div className="mt-auto border-t border-slate-800/80 px-3 pt-4 text-[10px] font-mono leading-relaxed text-slate-600">HCMC + REMOTE<br />CONSULTING CAREER TRACK</div>
+    </nav>
+  </aside>;
 };
